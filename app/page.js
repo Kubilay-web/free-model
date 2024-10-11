@@ -4,15 +4,9 @@ import "keen-slider/keen-slider.min.css";
 import Script from "next/script";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
+import { useEffect, useState } from "react";
 
 export default function page() {
-  const [sliderRef, instanceRef] = useKeenSlider({
-    loop: true,
-    slides: {
-      perView: 3, // 3 proje göstermek için ayarlayın
-      spacing: 15,
-    },
-  });
   const projects = [
     {
       title: "Sweet Berkeley Cottage",
@@ -47,6 +41,46 @@ export default function page() {
       weeks: "2",
     },
   ];
+
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
+  };
+
+  const [sliderRef, instanceRef] = useKeenSlider({
+    loop: true,
+    slides: {
+      origin: "center", // Slaytların ortalanması
+      perView: 1, // Varsayılan değer mobil için
+      spacing: 15,
+    },
+  });
+
+  useEffect(() => {
+    const updateSliderPerView = () => {
+      const isMobile = window.innerWidth <= 768; // 768px altında mobil olarak kabul edilir
+      instanceRef.current?.update({
+        slides: {
+          perView: isMobile ? 2 : 3, // Mobilde 1, masaüstünde 3 slayt göster
+        },
+      });
+
+      const isMobile2 = window.innerWidth < 426; // 768px altında mobil olarak kabul edilir
+      instanceRef.current?.update({
+        slides: {
+          perView: isMobile2 ? 1 : 3, // Mobilde 1, masaüstünde 3 slayt göster
+        },
+      });
+    };
+
+    window.addEventListener("resize", updateSliderPerView);
+    updateSliderPerView(); // Sayfa yüklendiğinde de çalıştır
+
+    return () => {
+      window.removeEventListener("resize", updateSliderPerView);
+    };
+  }, [instanceRef]);
 
   return (
     <div>
@@ -239,6 +273,7 @@ export default function page() {
                   <div className="lg:hidden">
                     <button className="text-gray-500 hover:text-gray-800">
                       <svg
+                        onClick={toggleMenu}
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"
@@ -255,6 +290,7 @@ export default function page() {
                     </button>
                   </div>
                 </div>
+
                 <div className="flex-1 pb-3 mt-8 lg:block lg:pb-0 lg:mt-0 hidden">
                   <ul className="justify-end items-center space-y-6 lg:flex lg:space-x-6 lg:space-y-0">
                     <li className="text-black hover:text-FM-orange lg:text-base">
@@ -301,6 +337,54 @@ export default function page() {
                 </div>
               </div>
             </nav>
+
+            <div
+              className={`${
+                menuOpen ? "block" : "hidden"
+              }  top-0 left-0 w-full bg-white z-50 transition-all duration-500 ease-in-out lg:hidden`}
+            >
+              <ul className="flex flex-col items-center space-y-6 py-6">
+                <li className="text-black hover:text-FM-orange">
+                  <a href="/how-it-works" className="text-lg">
+                    How It Works
+                  </a>
+                </li>
+                <li className="text-black hover:text-FM-orange">
+                  <a href="/for-agents" className="text-lg">
+                    For Agents
+                  </a>
+                </li>
+                <li className="text-black hover:text-FM-orange">
+                  <a href="/for-homeowners" className="text-lg">
+                    For Homeowners
+                  </a>
+                </li>
+                <li className="text-black hover:text-FM-orange">
+                  <a href="/projects" className="text-lg">
+                    Projects
+                  </a>
+                </li>
+                <li className="text-black hover:text-FM-orange">
+                  <a href="/locations" className="text-lg">
+                    Locations
+                  </a>
+                </li>
+                <li className="text-black hover:text-FM-orange">
+                  <a href="/team" className="text-lg">
+                    Your Team
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/lets-talk"
+                    className="block py-3 px-4 w-32 mx-auto font-medium text-center text-white bg-FM-orange hover:bg-orange-600 active:bg-indigo-700 rounded-lg shadow"
+                  >
+                    Let's Talk
+                  </a>
+                </li>
+              </ul>
+            </div>
+
             <main>
               <div className="relative">
                 <img
@@ -708,54 +792,63 @@ export default function page() {
                               {project.title}
                             </h2>
                             <div className="mt-3 flex items-center gap-8 text-xs">
-                              <div className="sm:inline-flex sm:shrink-0 sm:items-center sm:gap-2">
+                              {/* SLEEP */}
+                              <div className="flex items-center gap-3">
+                                <div className="flex items-center">
+                                  <svg
+                                    stroke="currentColor"
+                                    fill="currentColor"
+                                    strokeWidth={0}
+                                    viewBox="0 0 640 512"
+                                    className="h-5 w-5 text-FM-orange"
+                                    height="1em"
+                                    width="1em"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path d="M176 256c44.11 0 80-35.89 80-80s-35.89-80-80-80-80 35.89-80 80 35.89 80 80 80zm352-128H304c-8.84 0-16 7.16-16 16v144H64V80c0-8.84-7.16-16-16-16H16C7.16 64 0 71.16 0 80v352c0 8.84 7.16 16 16 16h32c8.84 0 16-7.16 16-16v-48h512v48c0 8.84 7.16 16 16 16h32c8.84 0 16-7.16 16-16V240c0-61.86-50.14-112-112-112z"></path>
+                                  </svg>
+                                </div>
+                                <div className="flex items-center">
+                                  <p className="text-black text-lg">
+                                    {project.sleep}
+                                  </p>
+                                </div>
+                              </div>
+
+                              {/* SHOWER */}
+                              <div className="flex items-center gap-3">
                                 <svg
                                   stroke="currentColor"
                                   fill="currentColor"
                                   strokeWidth={0}
-                                  viewBox="0 0 640 512"
+                                  viewBox="0 0 512 512"
                                   className="h-5 w-5 text-FM-orange"
                                   height="1em"
                                   width="1em"
                                   xmlns="http://www.w3.org/2000/svg"
                                 >
-                                  <path d="M176 256c44.11 0 80-35.89 80-80s-35.89-80-80-80-80 35.89-80 80 35.89 80 80 80zm352-128H304c-8.84 0-16 7.16-16 16v144H64V80c0-8.84-7.16-16-16-16H16C7.16 64 0 71.16 0 80v352c0 8.84 7.16 16 16 16h32c8.84 0 16-7.16 16-16v-48h512v48c0 8.84 7.16 16 16 16h32c8.84 0 16-7.16 16-16V240c0-61.86-50.14-112-112-112z"></path>
+                                  <path d="M32,384a95.4,95.4,0,0,0,32,71.09V496a16,16,0,0,0,16,16h32a16,16,0,0,0,16-16V480H384v16a16,16,0,0,0,16,16h32a16,16,0,0,0,16-16V455.09A95.4,95.4,0,0,0,480,384V336H32ZM496,256H80V69.25a21.26,21.26,0,0,1,36.28-15l19.27,19.26c-13.13,29.88-7.61,59.11,8.62,79.73l-.17.17A16,16,0,0,0,144,176l11.31,11.31a16,16,0,0,0,22.63,0L283.31,81.94a16,16,0,0,0,0-22.63L272,48a16,16,0,0,0-22.62,0l-.17.17c-20.62-16.23-49.83-21.75-79.73-8.62L150.22,20.28A69.25,69.25,0,0,0,32,69.25V256H16A16,16,0,0,0,0,272v16a16,16,0,0,0,16,16H496a16,16,0,0,0,16-16V272A16,16,0,0,0,496,256Z"></path>
                                 </svg>
                                 <p className="text-black text-lg">
-                                  {project.sleep}
+                                  {project.shower}
                                 </p>
-                                <div className="sm:inline-flex sm:shrink-0 sm:items-center sm:gap-2">
-                                  <svg
-                                    stroke="currentColor"
-                                    fill="currentColor"
-                                    strokeWidth={0}
-                                    viewBox="0 0 512 512"
-                                    className="h-5 w-5 text-FM-orange"
-                                    height="1em"
-                                    width="1em"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                  >
-                                    <path d="M32,384a95.4,95.4,0,0,0,32,71.09V496a16,16,0,0,0,16,16h32a16,16,0,0,0,16-16V480H384v16a16,16,0,0,0,16,16h32a16,16,0,0,0,16-16V455.09A95.4,95.4,0,0,0,480,384V336H32ZM496,256H80V69.25a21.26,21.26,0,0,1,36.28-15l19.27,19.26c-13.13,29.88-7.61,59.11,8.62,79.73l-.17.17A16,16,0,0,0,144,176l11.31,11.31a16,16,0,0,0,22.63,0L283.31,81.94a16,16,0,0,0,0-22.63L272,48a16,16,0,0,0-22.62,0l-.17.17c-20.62-16.23-49.83-21.75-79.73-8.62L150.22,20.28A69.25,69.25,0,0,0,32,69.25V256H16A16,16,0,0,0,0,272v16a16,16,0,0,0,16,16H496a16,16,0,0,0,16-16V272A16,16,0,0,0,496,256Z"></path>
-                                  </svg>
-                                  <p className="text-black text-lg">
-                                    {project.shower}
-                                  </p>
-                                </div>
-                                <div className="sm:inline-flex sm:shrink-0 sm:items-center sm:gap-2">
-                                  <svg
-                                    stroke="currentColor"
-                                    fill="currentColor"
-                                    strokeWidth={0}
-                                    viewBox="0 0 448 512"
-                                    className="h-5 w-5 text-FM-orange"
-                                    height="1em"
-                                    width="1em"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                  >
-                                    <path d="M0 464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V192H0v272zm320-196c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zM192 268c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zM64 268c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H76c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H76c-6.6 0-12-5.4-12-12v-40zM400 64h-48V16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v48H160V16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v48H48C21.5 64 0 85.5 0 112v48h448v-48c0-26.5-21.5-48-48-48z"></path>
-                                  </svg>
-                                  <p className="text-black text-lg">Weeks</p>
-                                </div>
+                              </div>
+
+                              {/* WEEKS */}
+                              <div className="flex items-center gap-3">
+                                <svg
+                                  stroke="currentColor"
+                                  fill="currentColor"
+                                  strokeWidth={0}
+                                  viewBox="0 0 448 512"
+                                  className="h-5 w-5 text-FM-orange"
+                                  height="1em"
+                                  width="1em"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <path d="M0 464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V192H0v272zm320-196c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zM192 268c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zM64 268c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H76c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H76c-6.6 0-12-5.4-12-12v-40zM400 64h-48V16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v48H160V16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v48H48C21.5 64 0 85.5 0 112v48h448v-48c0-26.5-21.5-48-48-48z"></path>
+                                </svg>
+                                <p className="text-black text-lg">Weeks</p>
                               </div>
                             </div>
                           </div>

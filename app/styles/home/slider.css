@@ -25,3 +25,7 @@ a.relative.block {
   width: 200px !important;
   margin: auto !important;
 }
+
+h4.cursor-pointer.pb-5.flex.items-center.justify-between.text-lg.text-black.font-bold {
+  width: 500px !important;
+}

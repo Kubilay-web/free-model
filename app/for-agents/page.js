@@ -1,6 +1,121 @@
 "use client";
+import { useKeenSlider } from "keen-slider/react";
+import "keen-slider/keen-slider.min.css";
+import Script from "next/script";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { Carousel } from "react-responsive-carousel";
+import { useEffect, useState } from "react";
 
 export default function page() {
+  const projects = [
+    {
+      title: "Sweet Berkeley Cottage",
+      text: "Realtor Kelley Solberg quickly saw the potential in this stunning $3MM+ property. But for her senior client in his 90s, she knew the process would need to be super smooth. Freemodel’s work helped the home start a bidding war and sell for far above asking.",
+      src: "https://www.youtube.com/embed/a0EO5ObDrc8?rel=0&si=HQQpbaPzo5UGW0wP",
+    },
+    {
+      title: "Sweet Berkeley Cottage",
+      text: "Realtor Kelley Solberg quickly saw the potential in this stunning $3MM+ property. But for her senior client in his 90s, she knew the process would need to be super smooth. Freemodel’s work helped the home start a bidding war and sell for far above asking.",
+      src: "https://www.youtube.com/embed/a0EO5ObDrc8?rel=0&si=HQQpbaPzo5UGW0wP",
+    },
+    {
+      title: "Sweet Berkeley Cottage",
+      text: "Realtor Kelley Solberg quickly saw the potential in this stunning $3MM+ property. But for her senior client in his 90s, she knew the process would need to be super smooth. Freemodel’s work helped the home start a bidding war and sell for far above asking.",
+      src: "https://www.youtube.com/embed/a0EO5ObDrc8?rel=0&si=HQQpbaPzo5UGW0wP",
+    },
+    {
+      title: "Sweet Berkeley Cottage",
+      text: "Realtor Kelley Solberg quickly saw the potential in this stunning $3MM+ property. But for her senior client in his 90s, she knew the process would need to be super smooth. Freemodel’s work helped the home start a bidding war and sell for far above asking.",
+      src: "https://www.youtube.com/embed/a0EO5ObDrc8?rel=0&si=HQQpbaPzo5UGW0wP",
+    },
+    {
+      title: "Sweet Berkeley Cottage",
+      text: "Realtor Kelley Solberg quickly saw the potential in this stunning $3MM+ property. But for her senior client in his 90s, she knew the process would need to be super smooth. Freemodel’s work helped the home start a bidding war and sell for far above asking.",
+      src: "https://www.youtube.com/embed/a0EO5ObDrc8?rel=0&si=HQQpbaPzo5UGW0wP",
+    },
+  ];
+
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
+  };
+
+  const [sliderRef, instanceRef] = useKeenSlider({
+    loop: true,
+    slides: {
+      // Slaytların ortalanması
+      perView: 3, // Varsayılan değer mobil için
+      spacing: 15,
+    },
+  });
+
+  useEffect(() => {
+    const updateSliderPerView = () => {
+      const isMobile = window.innerWidth <= 768; // 768px altında mobil olarak kabul edilir
+      instanceRef.current?.update({
+        slides: {
+          perView: isMobile ? 2 : 3, // Mobilde 1, masaüstünde 3 slayt göster
+        },
+      });
+
+      const isMobile2 = window.innerWidth < 426; // 768px altında mobil olarak kabul edilir
+      instanceRef.current?.update({
+        slides: {
+          perView: isMobile2 ? 1 : 3, // Mobilde 1, masaüstünde 3 slayt göster
+        },
+      });
+    };
+
+    window.addEventListener("resize", updateSliderPerView);
+    updateSliderPerView(); // Sayfa yüklendiğinde de çalıştır
+
+    return () => {
+      window.removeEventListener("resize", updateSliderPerView);
+    };
+  }, [instanceRef]);
+
+  const [isSubtextVisible, setIsSubtextVisible] = useState(false);
+  const [isSubtextVisible2, setIsSubtextVisible2] = useState(false);
+  const [isSubtextVisible3, setIsSubtextVisible3] = useState(false);
+  const [isSubtextVisible4, setIsSubtextVisible4] = useState(false);
+  const [isSubtextVisible5, setIsSubtextVisible5] = useState(false);
+  const [isSubtextVisible6, setIsSubtextVisible6] = useState(false);
+  const [isSubtextVisible7, setIsSubtextVisible7] = useState(false);
+  const [isSubtextVisible8, setIsSubtextVisible8] = useState(false);
+
+  const handleText = () => {
+    setIsSubtextVisible((prev) => !prev);
+  };
+
+  const handleText2 = () => {
+    setIsSubtextVisible2((prev) => !prev);
+  };
+
+  const handleText3 = () => {
+    setIsSubtextVisible3((prev) => !prev);
+  };
+
+  const handleText4 = () => {
+    setIsSubtextVisible4((prev) => !prev);
+  };
+
+  const handleText5 = () => {
+    setIsSubtextVisible5((prev) => !prev);
+  };
+
+  const handleText6 = () => {
+    setIsSubtextVisible6((prev) => !prev);
+  };
+
+  const handleText7 = () => {
+    setIsSubtextVisible7((prev) => !prev);
+  };
+
+  const handleText8 = () => {
+    setIsSubtextVisible8((prev) => !prev);
+  };
+
   return (
     <div>
       <meta charSet="utf-8" />
@@ -378,6 +493,7 @@ export default function page() {
                       <div className="max-w-2xl mx-auto">
                         <div className="space-y-3 mt-5 overflow-hidden border-b ">
                           <h4
+                            onClick={handleText}
                             className="cursor-pointer pb-5 flex items-center justify-between text-lg 
   text-black font-bold hover:text-FM-orange"
                           >
@@ -397,7 +513,46 @@ export default function page() {
                               ></path>
                             </svg>
                           </h4>
-                          <div
+
+                          {isSubtextVisible && (
+                            <div
+                              className="duration-300 text-black"
+                              style={{ height: "auto" }}
+                            >
+                              <div style={{ width: "500px" }}>
+                                <p className="ddd">
+                                  It all starts by simply reaching out.
+                                </p>
+                                <br />
+                                <p className="ddd">
+                                  Our team will immediately schedule a call with
+                                  you to collect key information about the
+                                  property and explore our renovation options.
+                                </p>
+                                <br />
+                                <p className="ddd">
+                                  On this call, we’ll discuss the following
+                                  items:
+                                </p>
+                                <br />
+                                <p className="ddd">
+                                  Scope — Your recommended renovations to
+                                  maximize sales price{" "}
+                                </p>
+                                <br />
+                                <p className="ddd">
+                                  Profit — The property’s as-is value and
+                                  after-remodel value{" "}
+                                </p>
+                                <br />
+                                <p className="ddd">
+                                  Timing — How quickly can we start?
+                                </p>
+                              </div>
+                            </div>
+                          )}
+
+                          {/* <div
                             className="duration-300 text-black"
                             style={{ height: "0px" }}
                           >
@@ -430,10 +585,11 @@ export default function page() {
                                 Timing — How quickly can we start?
                               </p>
                             </div>
-                          </div>
+                          </div> */}
                         </div>
                         <div className="space-y-3 mt-5 overflow-hidden border-b ">
                           <h4
+                            onClick={handleText2}
                             className="cursor-pointer pb-5 flex items-center justify-between text-lg 
   text-black font-bold hover:text-FM-orange"
                           >
@@ -453,7 +609,28 @@ export default function page() {
                               ></path>
                             </svg>
                           </h4>
-                          <div
+
+                          {isSubtextVisible2 && (
+                            <div
+                              className="duration-300 text-black"
+                              style={{ height: "auto" }}
+                            >
+                              <div style={{ width: "500px" }}>
+                                <p className="ddd">
+                                  Next, we’ll dig a bit deeper with you to
+                                  assemble a detailed scope of work that will
+                                  maximize the value of the home. We’ll send a
+                                  local project managers on-site to walk the
+                                  property, take photographs, and capture any
+                                  critical measurements. From this, we’ll
+                                  provide you and the homeowner with a detailed
+                                  project scope for you to review and approve.
+                                </p>
+                              </div>
+                            </div>
+                          )}
+
+                          {/* <div
                             className="duration-300 text-black"
                             style={{ height: "0px" }}
                           >
@@ -469,10 +646,11 @@ export default function page() {
                                 scope for you to review and approve.
                               </p>
                             </div>
-                          </div>
+                          </div> */}
                         </div>
                         <div className="space-y-3 mt-5 overflow-hidden border-b ">
                           <h4
+                            onClick={handleText3}
                             className="cursor-pointer pb-5 flex items-center justify-between text-lg 
   text-black font-bold hover:text-FM-orange"
                           >
@@ -492,24 +670,28 @@ export default function page() {
                               ></path>
                             </svg>
                           </h4>
-                          <div
-                            className="duration-300 text-black"
-                            style={{ height: "0px" }}
-                          >
-                            <div>
-                              <p className="ddd">
-                                To ensure we minimize surprises during the
-                                renovation phase, we’ll bring our select
-                                contractor partners to visit the property to
-                                review the planned project scope and to confirm
-                                they’re able to meet the project cost and
-                                timeline requirements.
-                              </p>
+
+                          {isSubtextVisible3 && (
+                            <div
+                              className="duration-300 text-black"
+                              style={{ height: "auto" }}
+                            >
+                              <div style={{ width: "500px" }}>
+                                <p className="ddd">
+                                  To ensure we minimize surprises during the
+                                  renovation phase, we’ll bring our select
+                                  contractor partners to visit the property to
+                                  review the planned project scope and to
+                                  confirm they’re able to meet the project cost
+                                  and timeline requirements.
+                                </p>
+                              </div>
                             </div>
-                          </div>
+                          )}
                         </div>
                         <div className="space-y-3 mt-5 overflow-hidden border-b ">
                           <h4
+                            onClick={handleText4}
                             className="cursor-pointer pb-5 flex items-center justify-between text-lg 
   text-black font-bold hover:text-FM-orange"
                           >
@@ -529,7 +711,29 @@ export default function page() {
                               ></path>
                             </svg>
                           </h4>
-                          <div
+
+                          {isSubtextVisible4 && (
+                            <div
+                              className="duration-300 text-black"
+                              style={{ height: "auto" }}
+                            >
+                              <div style={{ width: "500px" }}>
+                                <p className="ddd">
+                                  Freemodel will provide a fixed bid proposal to
+                                  the homeowner (also shared with the agent),
+                                  including an estimate of the potential profit
+                                  of the project. The bid will include a
+                                  detailed scope of work broken out by project
+                                  phase as well as approximate project start and
+                                  completion dates. The homeowner and the agent
+                                  are welcomed to provide input on project scope
+                                  and its impact to home value throughout this
+                                  process.
+                                </p>
+                              </div>
+                            </div>
+                          )}
+                          {/* <div
                             className="duration-300 text-black"
                             style={{ height: "0px" }}
                           >
@@ -546,10 +750,11 @@ export default function page() {
                                 to home value throughout this process.
                               </p>
                             </div>
-                          </div>
+                          </div> */}
                         </div>
                         <div className="space-y-3 mt-5 overflow-hidden border-b ">
                           <h4
+                            onClick={handleText5}
                             className="cursor-pointer pb-5 flex items-center justify-between text-lg 
   text-black font-bold hover:text-FM-orange"
                           >
@@ -569,24 +774,28 @@ export default function page() {
                               ></path>
                             </svg>
                           </h4>
-                          <div
-                            className="duration-300 text-black"
-                            style={{ height: "0px" }}
-                          >
-                            <div>
-                              <p className="ddd">
-                                Once we agree on the scope of work and the fixed
-                                bid, the homeowner will sign a contract with
-                                Freemodel. The contract will include the exact
-                                same scope of work we provide to our contractor
-                                partners, so we’ll all be working with the same
-                                project expectations.{" "}
-                              </p>
+
+                          {isSubtextVisible5 && (
+                            <div
+                              className="duration-300 text-black"
+                              style={{ height: "auto" }}
+                            >
+                              <div style={{ width: "500px" }}>
+                                <p className="ddd">
+                                  Once we agree on the scope of work and the
+                                  fixed bid, the homeowner will sign a contract
+                                  with Freemodel. The contract will include the
+                                  exact same scope of work we provide to our
+                                  contractor partners, so we’ll all be working
+                                  with the same project expectations.{" "}
+                                </p>
+                              </div>
                             </div>
-                          </div>
+                          )}
                         </div>
                         <div className="space-y-3 mt-5 overflow-hidden border-b ">
                           <h4
+                            onClick={handleText6}
                             className="cursor-pointer pb-5 flex items-center justify-between text-lg 
   text-black font-bold hover:text-FM-orange"
                           >
@@ -606,24 +815,28 @@ export default function page() {
                               ></path>
                             </svg>
                           </h4>
-                          <div
-                            className="duration-300 text-black"
-                            style={{ height: "0px" }}
-                          >
-                            <div>
-                              <p className="ddd">
-                                Next, our contractor partners will begin the
-                                project on the agreed-upon start date. A
-                                dedicated project manager will oversee the job
-                                and provide you and your seller with a digital
-                                project log with regular updates and photos of
-                                the completed work.
-                              </p>
+
+                          {isSubtextVisible6 && (
+                            <div
+                              className="duration-300 text-black"
+                              style={{ height: "auto" }}
+                            >
+                              <div style={{ width: "500px" }}>
+                                <p className="ddd">
+                                  Next, our contractor partners will begin the
+                                  project on the agreed-upon start date. A
+                                  dedicated project manager will oversee the job
+                                  and provide you and your seller with a digital
+                                  project log with regular updates and photos of
+                                  the completed work.
+                                </p>
+                              </div>
                             </div>
-                          </div>
+                          )}
                         </div>
                         <div className="space-y-3 mt-5 overflow-hidden border-b ">
                           <h4
+                            onClick={handleText7}
                             className="cursor-pointer pb-5 flex items-center justify-between text-lg 
   text-black font-bold hover:text-FM-orange"
                           >
@@ -643,23 +856,28 @@ export default function page() {
                               ></path>
                             </svg>
                           </h4>
-                          <div
-                            className="duration-300 text-black"
-                            style={{ height: "0px" }}
-                          >
-                            <div>
-                              <p className="ddd">
-                                When the renovation is complete, you’ll market
-                                the property at the price you and the homeowner
-                                determine. We allow 1 year for the home to sell
-                                and close, the renovation costs are then due and
-                                payable by the homeowner at escrow.
-                              </p>
+
+                          {isSubtextVisible7 && (
+                            <div
+                              className="duration-300 text-black"
+                              style={{ height: "auto" }}
+                            >
+                              <div style={{ width: "500px" }}>
+                                <p className="ddd">
+                                  When the renovation is complete, you’ll market
+                                  the property at the price you and the
+                                  homeowner determine. We allow 1 year for the
+                                  home to sell and close, the renovation costs
+                                  are then due and payable by the homeowner at
+                                  escrow.
+                                </p>
+                              </div>
                             </div>
-                          </div>
+                          )}
                         </div>
                         <div className="space-y-3 mt-5 overflow-hidden border-b ">
                           <h4
+                            onClick={handleText8}
                             className="cursor-pointer pb-5 flex items-center justify-between text-lg 
   text-black font-bold hover:text-FM-orange"
                           >
@@ -679,20 +897,23 @@ export default function page() {
                               ></path>
                             </svg>
                           </h4>
-                          <div
-                            className="duration-300 text-black"
-                            style={{ height: "0px" }}
-                          >
-                            <div>
-                              <p className="ddd">
-                                Congratulations — this is the part we’re all
-                                working toward! Once the home sells, Freemodel
-                                is paid directly out of escrow for the contract
-                                amount — no interest of any kind, no more
-                                paperwork, and no additional hassle.
-                              </p>
+
+                          {isSubtextVisible8 && (
+                            <div
+                              className="duration-300 text-black"
+                              style={{ height: "auto", width: "346px" }}
+                            >
+                              <div style={{ width: "500px" }}>
+                                <p className="ddd">
+                                  Congratulations — this is the part we’re all
+                                  working toward! Once the home sells, Freemodel
+                                  is paid directly out of escrow for the
+                                  contract amount — no interest of any kind, no
+                                  more paperwork, and no additional hassle.
+                                </p>
+                              </div>
                             </div>
-                          </div>
+                          )}
                         </div>
                       </div>
                     </section>
@@ -714,7 +935,62 @@ export default function page() {
                 <h2 className="text-5xl text-center text-black font-bold mt-14 mb-10">
                   Videos
                 </h2>
-                <div className="navigation-wrapper relative mx-auto  w-full  sm:w-[65%] md:w-[65%] lg:w-[75%] xl:w-[95%] 2xl:w-[65%] 3xl:w-[75%] 4xl:w-[75%]">
+
+                {/* Slider */}
+                <div className="relative mx-auto w-3/4">
+                  <div ref={sliderRef} className="keen-slider">
+                    {projects.map((project, index) => (
+                      <div
+                        className="keen-slider__slide h-[350px] md:h-[500px] rounded-lg border-2 bg-white border-stone-100"
+                        style={{ "max-width": "500px", "min-width": "500px" }}
+                      >
+                        <div className="jsx-6c374164f6fcfa75 relative w-full mx-auto object-cover mt-3">
+                          <iframe
+                            src={project.src}
+                            title="YouTube video player"
+                            frameBorder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            referrerPolicy="strict-origin-when-cross-origin"
+                            allowFullScreen
+                            className="jsx-6c374164f6fcfa75 mx-auto rounded-lg responsive-iframe !max-w-[90%]"
+                          />
+                        </div>
+                        <div className="mt-2">
+                          <dl>
+                            <div className="projectcardtitle px-8 !max-w-[90%] md:px-0 md:w-[500px] md:mx-auto">
+                              <h2 className="font-bold text-left text-xl min-h-[65px] line-clamp-2">
+                                {project.title}
+                              </h2>
+                              <p className="text-sm text-left mb-6">
+                                {project.text}
+                              </p>
+                            </div>
+                          </dl>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  {/* Kaydırma çubuğu */}
+                  <div className="keen-slider__controls flex justify-center mt-4">
+                    <button
+                      className="keen-slider__control keen-slider__control--prev"
+                      onClick={() => instanceRef.current?.prev()}
+                    >
+                      <span className="text-gray-700">&lt;</span>{" "}
+                      {/* Önceki düğmesi */}
+                    </button>
+                    <button
+                      className="keen-slider__control keen-slider__control--next"
+                      onClick={() => instanceRef.current?.next()}
+                    >
+                      <span className="text-gray-700">&gt;</span>{" "}
+                      {/* Sonraki düğmesi */}
+                    </button>
+                  </div>
+                </div>
+                {/* Slider */}
+
+                {/* <div className="navigation-wrapper relative mx-auto  w-full  sm:w-[65%] md:w-[65%] lg:w-[75%] xl:w-[95%] 2xl:w-[65%] 3xl:w-[75%] 4xl:w-[75%]">
                   <div className="slider-container w-[85%] mx-auto">
                     <div className="keen-slider">
                       <div
@@ -850,7 +1126,7 @@ export default function page() {
                       </div>
                     </div>
                   </div>
-                </div>
+                </div> */}
               </div>
             </main>
             <footer aria-label="Site Footer" className="bg-FM-orange">

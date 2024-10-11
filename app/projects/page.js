@@ -1,6 +1,80 @@
-import React from "react";
+"use client";
+import { useKeenSlider } from "keen-slider/react";
+import "keen-slider/keen-slider.min.css";
+import Script from "next/script";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { Carousel } from "react-responsive-carousel";
+import { useEffect, useState } from "react";
 
 export default function page() {
+  const projects = [
+    {
+      title: "Sweet Berkeley Cottage",
+      text: "Realtor Kelley Solberg quickly saw the potential in this stunning $3MM+ property. But for her senior client in his 90s, she knew the process would need to be super smooth. Freemodel’s work helped the home start a bidding war and sell for far above asking.",
+      src: "https://www.youtube.com/embed/a0EO5ObDrc8?rel=0&si=HQQpbaPzo5UGW0wP",
+    },
+    {
+      title: "Sweet Berkeley Cottage",
+      text: "Realtor Kelley Solberg quickly saw the potential in this stunning $3MM+ property. But for her senior client in his 90s, she knew the process would need to be super smooth. Freemodel’s work helped the home start a bidding war and sell for far above asking.",
+      src: "https://www.youtube.com/embed/a0EO5ObDrc8?rel=0&si=HQQpbaPzo5UGW0wP",
+    },
+    {
+      title: "Sweet Berkeley Cottage",
+      text: "Realtor Kelley Solberg quickly saw the potential in this stunning $3MM+ property. But for her senior client in his 90s, she knew the process would need to be super smooth. Freemodel’s work helped the home start a bidding war and sell for far above asking.",
+      src: "https://www.youtube.com/embed/a0EO5ObDrc8?rel=0&si=HQQpbaPzo5UGW0wP",
+    },
+    {
+      title: "Sweet Berkeley Cottage",
+      text: "Realtor Kelley Solberg quickly saw the potential in this stunning $3MM+ property. But for her senior client in his 90s, she knew the process would need to be super smooth. Freemodel’s work helped the home start a bidding war and sell for far above asking.",
+      src: "https://www.youtube.com/embed/a0EO5ObDrc8?rel=0&si=HQQpbaPzo5UGW0wP",
+    },
+    {
+      title: "Sweet Berkeley Cottage",
+      text: "Realtor Kelley Solberg quickly saw the potential in this stunning $3MM+ property. But for her senior client in his 90s, she knew the process would need to be super smooth. Freemodel’s work helped the home start a bidding war and sell for far above asking.",
+      src: "https://www.youtube.com/embed/a0EO5ObDrc8?rel=0&si=HQQpbaPzo5UGW0wP",
+    },
+  ];
+
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
+  };
+
+  const [sliderRef, instanceRef] = useKeenSlider({
+    loop: true,
+    slides: {
+      // Slaytların ortalanması
+      perView: 3, // Varsayılan değer mobil için
+      spacing: 15,
+    },
+  });
+
+  useEffect(() => {
+    const updateSliderPerView = () => {
+      const isMobile = window.innerWidth <= 768; // 768px altında mobil olarak kabul edilir
+      instanceRef.current?.update({
+        slides: {
+          perView: isMobile ? 2 : 3, // Mobilde 1, masaüstünde 3 slayt göster
+        },
+      });
+
+      const isMobile2 = window.innerWidth < 426; // 768px altında mobil olarak kabul edilir
+      instanceRef.current?.update({
+        slides: {
+          perView: isMobile2 ? 1 : 3, // Mobilde 1, masaüstünde 3 slayt göster
+        },
+      });
+    };
+
+    window.addEventListener("resize", updateSliderPerView);
+    updateSliderPerView(); // Sayfa yüklendiğinde de çalıştır
+
+    return () => {
+      window.removeEventListener("resize", updateSliderPerView);
+    };
+  }, [instanceRef]);
+
   return (
     <div>
       <meta charSet="utf-8" />
@@ -448,7 +522,62 @@ export default function page() {
                 <h2 className="text-5xl text-center text-black font-bold mt-14 mb-10">
                   Videos
                 </h2>
-                <div className="navigation-wrapper relative mx-auto  w-full  sm:w-[65%] md:w-[65%] lg:w-[75%] xl:w-[95%] 2xl:w-[65%] 3xl:w-[75%] 4xl:w-[75%]">
+
+                {/* Slider */}
+                <div className="relative mx-auto w-3/4">
+                  <div ref={sliderRef} className="keen-slider">
+                    {projects.map((project, index) => (
+                      <div
+                        className="keen-slider__slide h-[350px] md:h-[500px] rounded-lg border-2 bg-white border-stone-100"
+                        style={{ "max-width": "500px", "min-width": "500px" }}
+                      >
+                        <div className="jsx-6c374164f6fcfa75 relative w-full mx-auto object-cover mt-3">
+                          <iframe
+                            src={project.src}
+                            title="YouTube video player"
+                            frameBorder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            referrerPolicy="strict-origin-when-cross-origin"
+                            allowFullScreen
+                            className="jsx-6c374164f6fcfa75 mx-auto rounded-lg responsive-iframe !max-w-[90%]"
+                          />
+                        </div>
+                        <div className="mt-2">
+                          <dl>
+                            <div className="projectcardtitle px-8 !max-w-[90%] md:px-0 md:w-[500px] md:mx-auto">
+                              <h2 className="font-bold text-left text-xl min-h-[65px] line-clamp-2">
+                                {project.title}
+                              </h2>
+                              <p className="text-sm text-left mb-6">
+                                {project.text}
+                              </p>
+                            </div>
+                          </dl>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  {/* Kaydırma çubuğu */}
+                  <div className="keen-slider__controls flex justify-center mt-4">
+                    <button
+                      className="keen-slider__control keen-slider__control--prev"
+                      onClick={() => instanceRef.current?.prev()}
+                    >
+                      <span className="text-gray-700">&lt;</span>{" "}
+                      {/* Önceki düğmesi */}
+                    </button>
+                    <button
+                      className="keen-slider__control keen-slider__control--next"
+                      onClick={() => instanceRef.current?.next()}
+                    >
+                      <span className="text-gray-700">&gt;</span>{" "}
+                      {/* Sonraki düğmesi */}
+                    </button>
+                  </div>
+                </div>
+                {/* Slider */}
+
+                {/* <div className="navigation-wrapper relative mx-auto  w-full  sm:w-[65%] md:w-[65%] lg:w-[75%] xl:w-[95%] 2xl:w-[65%] 3xl:w-[75%] 4xl:w-[75%]">
                   <div className="slider-container w-[85%] mx-auto">
                     <div className="keen-slider">
                       <div
@@ -585,7 +714,7 @@ export default function page() {
                       </div>
                     </div>
                   </div>
-                </div>
+                </div> */}
               </div>
               <div className="text-center mt-20  py-20 bg-FM-blue">
                 <h1 className="text-5xl text-center text-white font-bold mb-14">
