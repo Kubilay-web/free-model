@@ -519,7 +519,12 @@ export default function page() {
                               className="duration-300 text-black"
                               style={{ height: "auto" }}
                             >
-                              <div style={{ width: "500px" }}>
+                              <div
+                                style={{
+                                  width: "500px",
+                                  padding: "0px 0px 20px 0px",
+                                }}
+                              >
                                 <p className="ddd">
                                   It all starts by simply reaching out.
                                 </p>
@@ -615,7 +620,12 @@ export default function page() {
                               className="duration-300 text-black"
                               style={{ height: "auto" }}
                             >
-                              <div style={{ width: "500px" }}>
+                              <div
+                                style={{
+                                  width: "500px",
+                                  padding: "0px 0px 20px 0px",
+                                }}
+                              >
                                 <p className="ddd">
                                   Next, we’ll dig a bit deeper with you to
                                   assemble a detailed scope of work that will
@@ -717,7 +727,12 @@ export default function page() {
                               className="duration-300 text-black"
                               style={{ height: "auto" }}
                             >
-                              <div style={{ width: "500px" }}>
+                              <div
+                                style={{
+                                  width: "500px",
+                                  padding: "0px 0px 20px 0px",
+                                }}
+                              >
                                 <p className="ddd">
                                   Freemodel will provide a fixed bid proposal to
                                   the homeowner (also shared with the agent),
@@ -780,7 +795,12 @@ export default function page() {
                               className="duration-300 text-black"
                               style={{ height: "auto" }}
                             >
-                              <div style={{ width: "500px" }}>
+                              <div
+                                style={{
+                                  width: "500px",
+                                  padding: "0px 0px 20px 0px",
+                                }}
+                              >
                                 <p className="ddd">
                                   Once we agree on the scope of work and the
                                   fixed bid, the homeowner will sign a contract
@@ -821,7 +841,12 @@ export default function page() {
                               className="duration-300 text-black"
                               style={{ height: "auto" }}
                             >
-                              <div style={{ width: "500px" }}>
+                              <div
+                                style={{
+                                  width: "500px",
+                                  padding: "0px 0px 20px 0px",
+                                }}
+                              >
                                 <p className="ddd">
                                   Next, our contractor partners will begin the
                                   project on the agreed-upon start date. A
@@ -862,7 +887,12 @@ export default function page() {
                               className="duration-300 text-black"
                               style={{ height: "auto" }}
                             >
-                              <div style={{ width: "500px" }}>
+                              <div
+                                style={{
+                                  width: "500px",
+                                  padding: "0px 0px 20px 0px",
+                                }}
+                              >
                                 <p className="ddd">
                                   When the renovation is complete, you’ll market
                                   the property at the price you and the
@@ -903,7 +933,12 @@ export default function page() {
                               className="duration-300 text-black"
                               style={{ height: "auto", width: "346px" }}
                             >
-                              <div style={{ width: "500px" }}>
+                              <div
+                                style={{
+                                  width: "500px",
+                                  padding: "0px 0px 20px 0px",
+                                }}
+                              >
                                 <p className="ddd">
                                   Congratulations — this is the part we’re all
                                   working toward! Once the home sells, Freemodel
